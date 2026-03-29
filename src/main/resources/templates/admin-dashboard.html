@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Console d'Administration</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #1e1e2f;
+            color: white;
+        }
+
+        .sidebar {
+            width: 260px;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            height: 100vh;
+            position: fixed;
+            padding: 20px;
+        }
+
+        .main-content {
+            margin-left: 260px;
+            padding: 30px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .btn-back {
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 8px;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            padding: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+    </style>
+</head>
+<body>
+<div class="sidebar">
+    <h2>⚙️ Admin Console</h2>
+    <p style="margin-top: 20px;">Malak NAIT HADDOU</p>
+    <hr style="margin: 20px 0; opacity: 0.3;">
+    <p>📊 Dashboard</p>
+    <p>👥 Utilisateurs</p>
+    <p>📝 Logs</p>
+    <p>⚙️ Paramètres</p>
+</div>
+
+<div class="main-content">
+    <h1>Tableau de bord Administrateur</h1>
+    <p style="margin-bottom: 30px;">Connecté avec : <strong sec:authentication="name"></strong></p>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div>👥 Utilisateurs</div>
+            <div class="stat-number" th:text="${totalUsers}">0</div>
+        </div>
+        <div class="stat-card">
+            <div>🟢 Sessions actives</div>
+            <div class="stat-number" th:text="${activeSessions}">0</div>
+        </div>
+        <div class="stat-card">
+            <div>📊 Visites totales</div>
+            <div class="stat-number" th:text="${totalVisits}">0</div>
+        </div>
+    </div>
+
+    <table>
+        <tr>
+            <th>Propriété</th>
+            <th>Valeur</th>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td sec:authentication="name"></td>
+        </tr>
+        <tr>
+            <td>Dernière connexion</td>
+            <td th:text="${lastLogin}"></td>
+        </tr>
+        <tr>
+            <td>Date actuelle</td>
+            <td th:text="${currentDate}"></td>
+        </tr>
+        <tr>
+            <td>Heure</td>
+            <td th:text="${currentTime}"></td>
+        </tr>
+    </table>
+
+    <a href="/home" class="btn-back">← Retour à l'accueil</a>
+</div>
+</body>
+</html>
